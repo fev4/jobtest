@@ -1,5 +1,5 @@
 <script setup lang="ts">
-defineProps<{ show: boolean }>()
+defineProps<{ show: Boolean }>()
 </script>
 
 <template>
@@ -9,18 +9,17 @@ defineProps<{ show: boolean }>()
         <div class="modal-header">
           <slot name="header">default header</slot>
         </div>
+        <form>
+          <div class="modal-body">
+            <slot name="body">default body</slot>
+          </div>
 
-        <div class="modal-body">
-          <input required type="text" placeholder="Jane Doe">
-          <input required type="email" placeholder="jane.doe@email.com">
-          <input required type="phone" placeholder="+1 8888888888">
-        </div>
+          <div class="modal-footer">
+            <button class="" @click="$emit('close')">Close</button>
 
-        <div class="modal-footer">
-          <button class="" @click="$emit('close')">Close</button>
-
-          <button class="" @click="$emit('submit')">Submit</button>
-        </div>
+            <button class="" @click.prevent="$emit('submit')">Submit</button>
+          </div>
+        </form>
       </div>
     </div>
   </Transition>

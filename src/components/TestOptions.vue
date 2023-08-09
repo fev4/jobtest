@@ -1,8 +1,32 @@
 <script setup lang="ts">
+import CryptoJS from 'crypto-js';
+import { inject, ref, computed } from 'vue'
 import Modal from './Modal.vue'
-import { ref } from 'vue'
+import * as RudderStack from 'rudder-sdk-js';
 
+const name = ref("");
+const email = ref("");
+const phone = ref("");
+const choice = ref("");
+const hashedEmail = computed(() => CryptoJS.SHA256(email.value).toString());
 const showModal = ref(false)
+
+const rsanalytics = inject('rsanalytics') as typeof RudderStack;
+
+const onSubmit = () => {
+  if (rsanalytics) {
+    const userTraits = {
+      name: name.value,
+      email: email.value,
+      phone: phone.value,
+      choice: choice.value
+    }
+    rsanalytics.identify(hashedEmail.value, userTraits);
+  }
+  showModal.value = false
+}
+
+
 </script>
 <template>
   <div class="g_s-two-columns">
@@ -60,9 +84,18 @@ const showModal = ref(false)
 
   <Teleport to="body">
     <!-- use the modal component, pass in the prop -->
-    <modal :show="showModal" @close="showModal = false">
+    <modal :show="showModal" @submit="onSubmit" @close="showModal = false">
       <template #header>
         <h3>custom header</h3>
+      </template>
+      <template #body>
+        <input required type="text" placeholder="Jane Doe" v-model="name">
+        <input required type="email" placeholder="jane.doe@email.com" v-model="email">
+        <input required type="phone" placeholder="+1 8888888888" v-model="phone">
+        <input type="radio" id="option1" value="Job Test 1" v-model="choice">
+        <label for="option1">Test One</label>
+        <input type="radio" id="option2" value="Job Test 2" v-model="choice">
+        <label for="option2">Test Two</label>
       </template>
     </modal>
   </Teleport>
