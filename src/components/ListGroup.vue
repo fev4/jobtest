@@ -95,22 +95,22 @@ const onClose = () => {
           <span :class="{ valid: isNameValid === true, invalid: isNameValid === false }">{{ isNameValid === false ? `The
             name
             must be at least 2 characters long` : `What's
-            your name?*` }}</span>
+            your name? *` }}</span>
           <input type="text" placeholder="Jane Doe" v-model="name">
         </label>
         <label class="label-large">
           <span :class="{ valid: isEmailValid === true, invalid: isEmailValid === false }">{{ isEmailValid === false ?
-            `The email must be valid` : `What's your email address?*` }}</span>
+            `The email must be valid` : `What's your email address? *` }}</span>
           <input type="email" placeholder="jane.doe@email.com" v-model="email">
         </label>
         <label class="label-large">
           <span :class="{ valid: isPhoneValid === true, invalid: isPhoneValid === false }">{{ isPhoneValid === false ?
-            `The phone must be 10 digits` : `What's your phone number?*` }}</span>
+            `The phone must be 10 digits` : `What's your phone number? *` }}</span>
           <input type="phone" placeholder="+1 8888888888" v-model="phone">
         </label>
         <div class="bold-text">
           <span :class="{ valid: isChoiceValid === true, invalid: isChoiceValid === false }">{{ isChoiceValid === false ?
-            `Please select one of the two options` : `What test are you interested in?*` }}</span>
+            `Please select one of the two options` : `What test are you interested in? *` }}</span>
           <div class="checkbox-options">
             <label for="option1">Test One
               <input type="radio" id="option1" value="Job Test 1" v-model="choice">
