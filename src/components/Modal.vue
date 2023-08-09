@@ -1,10 +1,27 @@
 <script setup lang="ts">
-defineProps<{ show: Boolean }>()
+import { onMounted, onUnmounted } from 'vue';
+
+const { show } = defineProps<{ show: Boolean }>()
+const emit = defineEmits(['close']);
+
+const closeOnEsc = (event: KeyboardEvent) => {
+  if (event.key === 'Escape') {
+    emit('close');
+  }
+};
+
+onMounted(() => {
+  window.addEventListener('keydown', closeOnEsc);
+});
+
+onUnmounted(() => {
+  window.removeEventListener('keydown', closeOnEsc);
+});
 </script>
 
 <template>
   <Transition name="modal">
-    <div v-if="show" class="modal-mask">
+    <div v-if="show" class="modal-mask" @click.self="$emit('close')">
       <div class="modal-container">
         <div class="modal-header">
           <slot name="header">default header</slot>
@@ -15,9 +32,8 @@ defineProps<{ show: Boolean }>()
           </div>
 
           <div class="modal-footer">
-            <button class="" @click="$emit('close')">Close</button>
-
-            <button class="" @click.prevent="$emit('submit')">Submit</button>
+            <button class="btn-modal btn-small" @click.prevent="$emit('close')">Cancel</button>
+            <button class="btn-modal btn-small-cyan" @click.prevent="$emit('submit')">Submit</button>
           </div>
         </form>
       </div>
@@ -39,13 +55,14 @@ defineProps<{ show: Boolean }>()
 }
 
 .modal-container {
-  width: 300px;
+  max-width: 550px;
   margin: auto;
   padding: 20px 30px;
   background-color: #fff;
   border-radius: 2px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
   transition: all 0.3s ease;
+  border-radius: 10px;
 }
 
 .modal-header h3 {
@@ -61,15 +78,6 @@ defineProps<{ show: Boolean }>()
   float: right;
 }
 
-/*
- * The following styles are auto-applied to elements with
- * transition="modal" when their visibility is toggled
- * by Vue.js.
- *
- * You can easily play with the modal transition by editing
- * these styles.
- */
-
 .modal-enter-from {
   opacity: 0;
 }
@@ -82,5 +90,48 @@ defineProps<{ show: Boolean }>()
 .modal-leave-to .modal-container {
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.btn-modal {
+  text-align: center;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  border-radius: 25px;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 32px;
+  text-decoration: none;
+  display: flex;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-small {
+  transition: all .3s ease-in;
+  padding: 10px 20px;
+  color: #000;
+  background-color: unset;
+}
+
+.btn-small:hover {
+  background-color: #d2d0d0;
+}
+
+.btn-small-cyan {
+  transition: all .3s ease-in;
+  padding: 10px 20px;
+  color: #000;
+  background-color: #5bead0;
+}
+
+.btn-small-cyan:hover {
+  background-color: #d8a4ff;
 }
 </style>
