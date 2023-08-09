@@ -12,11 +12,6 @@ dist
 dist-ssr
 *.local
 
-src/css
-src/png
-src/svg
-src/webp
-
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
