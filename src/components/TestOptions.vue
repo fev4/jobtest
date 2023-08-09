@@ -22,6 +22,7 @@ const onSubmit = () => {
       choice: choice.value
     }
     rsanalytics.identify(hashedEmail.value, userTraits);
+    rsanalytics.track("Form Submission New Lead");
   }
   showModal.value = false
 }
