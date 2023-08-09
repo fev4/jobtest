@@ -31,6 +31,10 @@ const isChoiceValid = computed(() => {
 
 const rsanalytics = inject('rsanalytics') as typeof RudderStack;
 
+const onSuccessfulSubmission = () => {
+  isValidating.value = false;
+}
+
 const onSubmit = () => {
   isValidating.value = true;
   if (rsanalytics) {
@@ -41,7 +45,7 @@ const onSubmit = () => {
       choice: choice.value
     }
     if (isNameValid.value && isEmailValid.value && isPhoneValid.value && isChoiceValid.value) {
-      rsanalytics.identify(hashedEmail.value, userTraits);
+      rsanalytics.identify(hashedEmail.value, userTraits, undefined, onSuccessfulSubmission);
       rsanalytics.track("Form Submission New Lead");
       showModal.value = false
       name.value = "";
