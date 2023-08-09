@@ -77,7 +77,7 @@ const onClose = () => {
     <button @click="showModal = true" class="btn-large-cyan v-inline-block">
       <span class="btn-content">
         Start now
-        <img src="/src/svg/63b58014b3cc40878285e38d_arrowupright black.svg" loading="lazy" alt=""
+        <img src="/src/svg/63b58014b3cc40878285e38d_arrowupright_black.svg" loading="lazy" alt=""
           class="g_s-btn-arrow-upright" />
       </span>
     </button>
