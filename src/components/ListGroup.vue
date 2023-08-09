@@ -52,6 +52,13 @@ const onSubmit = () => {
   }
 }
 
+const onOpen = () => {
+  showModal.value = true
+  if (rsanalytics) {
+    rsanalytics.track("Form Submission Opened");
+  }
+}
+
 const onClose = () => {
   showModal.value = false
   isValidating.value = false;
@@ -59,6 +66,9 @@ const onClose = () => {
   email.value = "";
   phone.value = "";
   choice.value = "";
+  if (rsanalytics) {
+    rsanalytics.track("Form Submission Closed");
+  }
 }
 
 
@@ -74,7 +84,7 @@ const onClose = () => {
         <List />
       </div>
     </div>
-    <button @click="showModal = true" class="btn-large-cyan v-inline-block">
+    <button @click="onOpen" class="btn-large-cyan v-inline-block">
       <span class="btn-content">
         Start now
         <img src="/src/svg/63b58014b3cc40878285e38d_arrowupright_black.svg" loading="lazy" alt=""
