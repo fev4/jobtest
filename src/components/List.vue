@@ -11,7 +11,7 @@ defineProps({
   },
   subtitle: {
     type: String,
-    default: () => 'Find answers to:'
+    default: () => 'Find the answers to these topics'
   }
 })
 </script>

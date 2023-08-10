@@ -82,10 +82,10 @@ const onClose = () => {
     <h2 class="two-columns-title">20 minutes to define your next 20 years </h2>
     <div class="w-layout-grid two-columns-wrap">
       <div class="g_s-two-columns-left">
-        <List />
+        <List title="Quick and simple" />
       </div>
       <div class="g_s-two-columns-right">
-        <List />
+        <List title="In depth & detailed" />
       </div>
     </div>
     <button @click="onOpen" class="btn-large-cyan v-inline-block">
@@ -109,7 +109,7 @@ const onClose = () => {
           <span :class="{ valid: isNameValid === true, invalid: isNameValid === false }">{{ isNameValid === false ? `The
             name
             must be at least 2 characters long` : `What's
-            your name? *` }}</span>
+            your name ? * ` }}</span>
           <input type="text" placeholder="Jane Doe" v-model="name">
         </label>
         <label class="label-large">
